@@ -1,0 +1,27 @@
+{% extends "base.html" %} 
+{% load static %}
+
+{% block content %}
+    
+    <main class="form-signin">
+      <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <h1 class="h3 mb-3 fw-normal">Пожалуйста авторизируйтесь</h1>    
+       
+        <div class="form-floating">
+              {{ form.username }}
+          <label for="floatingInput">Username</label>
+        </div>
+        <div class="form-floating">
+          {{ form.password }}
+          <label for="floatingPassword">Пароль</label>
+        </div>
+    
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Вход</button>
+        
+      </form>
+    </main>
+    {% endblock %}
+    
+        
+    

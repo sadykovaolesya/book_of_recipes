@@ -1,0 +1,76 @@
+{% extends "base.html" %} 
+{% load static %}
+
+{% block content %}
+          <div class="row">
+            <div class="col-12">
+             
+                <form action="{% url 'recipe_create' %}" method="post" enctype="multipart/form-data" id="form-container">
+                    {% csrf_token %}
+                <h2 class="h2">Новый рецепт</h2>
+                <div class="col-12 mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Название</label>
+                    {{ form.title }}
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Описание</label>
+                   {{ form.description}}
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="formFile" class="form-label">Изображение</label>
+                    {{ form.img_recipe }}
+                </div>
+
+                <div class="col-12 mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Текст рецепта</label>
+                   {{ form.text_recipe}}
+                </div>
+
+                {{ formset.management_form }}
+                {% for form_set in formset %}
+              
+               <div class = "ingredient" >
+             
+                <div class="row g-3">
+                <div class="col-6 mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Ингредиенты</label>
+                    {{form_set.ingredient}}
+                
+                </div>
+
+                <div class="col-2 mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Количество</label>
+                    {{form_set.quantity}}
+                </div>
+
+                <div class="col-3 mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Eдиницы измерения</label>
+                    {{form_set.unity}}
+                   
+                </div>
+                </div>
+        </div>
+   
+            {% endfor %}
+       
+            <div class="col-12 mb-3" id="add-form">
+                    
+                        <button type="button" class="btn btn-outline-secondary">Добавить ингредиент в рецепт</button>
+                            
+            </div>
+          
+                <div class="col-12 mb-3">
+                    <input class="btn btn-primary btn-lg" type="submit" value="Сохранить">
+               
+                </div>
+
+            </div>
+
+          </div>
+        </div>
+
+  
+        <script src="{% static 'scripts.js' %}"></script> 
+   
+
+{% endblock %}

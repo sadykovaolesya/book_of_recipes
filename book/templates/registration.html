@@ -1,0 +1,45 @@
+{% extends "base.html" %} 
+{% load static %}
+
+{% block content %}
+<main class="form-reg">
+    <form action="{% url 'registration' %}" method="post" >
+        {% csrf_token %}
+        <div class="text-center">
+            <h4 class="h4 mb-3 fw-normal">Регистрация</h4>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Ваше имя</label>
+            {{ form.username }}
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Ваш e-mail</label>
+            {{ form.email }}
+
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Пароль</label>
+            {{ form.password1 }}
+          </div>
+  
+
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Подтверждение пароля</label>
+        {{ form.password2 }}
+    </div>
+
+    
+
+               <input class="w-100 btn btn-lg btn-primary" type="submit" value="Регистрация">
+
+
+                {% if form.errors %}
+                {{ form.errors }}
+                {% endif %}
+            </form>
+        </main>
+        {% endblock %}
+        

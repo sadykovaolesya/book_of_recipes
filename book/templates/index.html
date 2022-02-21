@@ -1,0 +1,97 @@
+{% extends "base.html" %} 
+{% load static %}
+{% load tags_ingredients %}
+{% block content %}
+          <h4>Фильтр по ингридиентам</h4>
+            <div class="row">
+                <div class="col-12">
+                    <div class="wrap-filter">
+                        {% get_ingredients as ingredients %}
+                        <form id="form" method = "GET">
+                       
+                        {% for ingredient in ingredients %}
+                        <input type="checkbox" class="btn-check" id="{{ ingredient.id }}" name="check"  value="{{ ingredient.id }}" autocomplete="off" >
+                        <label class="btn btn-outline-primary" for="{{ ingredient.id }}">{{ingredient.title }}</label>
+                        {% endfor %}
+                    <br>
+                    <input type="submit"  class="btn btn-primary" value="Применить">
+                </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="h2">Рецепты</h2>
+                    <div class="row">
+                        <div class="col-3">
+                    <a href="{% url 'recipe_create' %}" class="btn btn-primary add">Добавить новый рецепт</a>
+                        </div>
+                        <div class="col-9">
+                    <form class="col-12 col-lg-4 mb-3 mb-lg-0 me-lg-3"  method="get">
+                        <input class="form-control" placeholder="Поиск..." type="text" name="title" onchange="this.form.submit()">
+
+                      </form>
+                      <br>
+                    </div>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="wrap">
+              
+            <div class="row">
+
+                {% for recipe in recipe_list %}
+                <div class="col-3">
+                    <img src="{{ recipe.img_recipe.url }}" class="rounded img-fluid" alt="...">
+                </div>
+                <div class="col-9">
+                    <h3><a href="{% url 'recipe' recipe.pk %}">{{ recipe.title  }}</a></h3>
+                    <div class="wrap-description">
+                        {% for ingredient in recipe.recipe_ingredient.all %}
+                        <div class="badge bg-secondary" >{{ ingredient.ingredient }}</div>
+                        {% endfor %}
+                        <p>{{ recipe.description }}</p>
+                    
+                    </div>
+                   </div>
+                   {% endfor %}
+            </div>
+            </div>
+
+                    <div class="pagination-main">
+                        <div class="row">
+                            <div class="col-12">
+
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+
+                                        {% if page_obj.has_previous %}
+                                      <li class="page-item">
+                                        <a class="page-link" href= href="?page={{ page_obj.previous_page_number }}{% if querystring %}&amp;{{ querystring }}{% endif %}" aria-label="Previous">
+                                          <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                      </li>
+                                      {% endif %}
+                                      {% for num in page_obj.paginator.page_range %}
+                                      {% if num == page_obj.number %}
+                                      <li class="page-item">  <a href="?page={{ num }}{% if querystring %}&amp;{{ querystring }}{% endif %} " class="page-link"> {{ num }} </a></li>
+                                  {% else %}
+                                  <li class="page-item">   <a href="?page={{ num }}{% if querystring %}&amp;{{ querystring }}{% endif %} " class="page-link">{{ num }} </a></li>
+                                     {% endif%}
+
+                                    {% endfor %}
+                                    {% if page_obj.has_next %}
+                                    <li class="page-item">	<a class="page-link" aria-label="Next" href="?page={{ page_obj.next_page_number }}{% if querystring %}&amp;{{ querystring }}{% endif %}"> <span aria-hidden="true">&raquo;</span></a>
+                                     </li>
+                                 {% endif%}
+                                    </ul>
+                                  </nav>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                  
+{% endblock %}

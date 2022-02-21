@@ -1,0 +1,43 @@
+{% extends "base.html" %} 
+{% load static %}
+{% block content %}
+    
+    <div class="row">
+
+        <div class="wrap">
+            <div class="row">
+                <div class="col-3">
+                    <img src="{{ recipe.img_recipe.url }}" class="rounded img-fluid" alt="...">
+                </div>
+                <div class="col-9">
+                    <h3>{{recipe.title}}</h3>
+                    <div class="wrap-description">
+                        Автор: <a href="{% url 'author' recipe.author.id %}" class="btn btn-outline-secondary btn-sm">{{recipe.author }}</a>
+                        <p>{{ recipe.description }}</p>
+                    
+                    </div>
+                   </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="h4">Ингредиенты</h4>
+                    <ul class="list-group list-group-flush">
+                        {% for ingredient in recipe.recipe_ingredient.all %}
+                        <li class="list-group-item">{{ ingredient.ingredient }} - {{ ingredient.quantity }} {{ingredient.unity}}</li>
+                        {% endfor %}
+                      </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="h4">Рецепт</h4>
+                    <p>{{recipe.text_recipe}}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
