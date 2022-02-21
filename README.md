@@ -23,11 +23,6 @@ docker-compose exec web bash
 python manage.py migrate
 ```
 
-#### Сборка статики:
-
-```bash
-python manage.py collectstatic
-```
 
 #### Создание суперпользователя
 
